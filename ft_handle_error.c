@@ -2,6 +2,6 @@
 
 void	ft_handle_negative_size(void)
 {
-	perror("Error message: ");
+	write (2, "Cannot allocate memory.", 23);
 	return;
 }

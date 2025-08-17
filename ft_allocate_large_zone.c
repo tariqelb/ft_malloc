@@ -4,7 +4,7 @@ void	*ft_allocate_large_zone(size_t nbr_of_bytes)
 {
 	//Allocate large zone directly with mmap
 	 t_zone	*temp_zone;
-	 t_zone *zones;
+	 t_zone *zone;
 	 
 	 size_t total_size = sizeof(t_zone) + sizeof(t_block) + nbr_of_bytes;
 	 zone = mmap(NULL, total_size, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
@@ -26,7 +26,7 @@ void	*ft_allocate_large_zone(size_t nbr_of_bytes)
    	block->next = NULL;
 	
 	if (g_zone_var.large == NULL)
-		g_zone_var.large = zones;
+		g_zone_var.large = zone;
 	else
 	{
 		temp_zone = g_zone_var.large;

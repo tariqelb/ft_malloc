@@ -2,6 +2,7 @@
 # define FT_MALLOC_H
 
 # include <unistd.h>
+# include <stdint.h>
 # include <stdio.h>
 # include <sys/mman.h>
 # include <sys/resource.h>
@@ -16,13 +17,19 @@
 # define SMALL 1023
 # define LARGE 1024
 
+
+#define ALIGN(x, a) (((x) + ((a) - 1)) & ~((a) - 1))  // round up to multiple of a
+#define ALIGN16(x) ALIGN((x), 16)                     // shorthand for 16-byte alignment
+
+
 typedef struct s_block {
 
     size_t              size;     // Size of the user’s data (not including this header)
     int                 free;    // 1 if block is free, 0 if it’s in use
     struct s_block      *next;  // Pointer to the next block in the zone
+	int					_pad;  // for alingment
 
-} t_block;
+} __attribute__((aligned(16))) t_block;
 
 
 
