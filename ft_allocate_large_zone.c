@@ -7,7 +7,8 @@ void	*ft_allocate_large_zone(size_t nbr_of_bytes)
 	 t_zone *zone;
 	 
 	 size_t total_size = sizeof(t_zone) + sizeof(t_block) + nbr_of_bytes;
-	 zone = mmap(NULL, total_size, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+	 size_t aligned_size = ALIGN16(total_size);  
+	 zone = mmap(NULL, aligned_size, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
 
 	if (zone == MAP_FAILED)
 	{
@@ -21,9 +22,10 @@ void	*ft_allocate_large_zone(size_t nbr_of_bytes)
 
 	t_block *block = zone->blocks;
 
-   	block->size = nbr_of_bytes;
+   	block->size = aligned_size - sizeof(t_zone) - sizeof(t_block);
    	block->free = 0;
    	block->next = NULL;
+   	block->zone_id = 2;
 	
 	if (g_zone_var.large == NULL)
 		g_zone_var.large = zone;

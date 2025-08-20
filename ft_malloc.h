@@ -24,10 +24,12 @@
 
 typedef struct s_block {
 
-    size_t              size;     // Size of the user’s data (not including this header)
-    int                 free;    // 1 if block is free, 0 if it’s in use
-    struct s_block      *next;  // Pointer to the next block in the zone
-	int					_pad;  // for alingment
+ 	size_t		size;     // Size of the user’s data (not including this header)
+	int		free;    // 1 if block is free, 0 if it’s in use
+	struct s_block	*next;  // Pointer to the next block in the zone
+	int		zone_id;  // for alingment, make struct size 32
+				  // know it use for indicate which zone 
+				  // belong the block to simplify free operation
 
 } __attribute__((aligned(16))) t_block;
 
@@ -76,7 +78,7 @@ int		ft_check_if_zone_is_full(int zone, size_t nbr_of_bytes);
 void		*ft_find_the_best_free_block(int zone, size_t nbr_of_bytes);
 
 //Description: Split block into two blocks if memory that block hold more that suffesent
-void		*ft_resize_largest_free_block(size_t nbr_of_bytes, t_zone *page_ptr);
+void		*ft_resize_largest_free_block(size_t nbr_of_bytes, t_zone *page_ptr, int zone);
 
 //Description: For pages we need always update the variable largest free block to use it later on a new allocation
 void		ft_update_largest_free_block_size(t_zone *page_ptr);
@@ -89,5 +91,17 @@ void    *ft_allocate_large_zone(size_t nbr_of_bytes);
 //----ft_allocate_new_page.c
 //Description: Allocate new page in zones TINY and SMALL if its full
 t_zone	*ft_allocate_new_page(int zone);
+
+
+
+//---------------------------------------------------------------------
+
+void	ft_free(void *ptr);
+void	ft_merge_free_blocks(t_block *block);
+
+
+
+
+
 
 # endif

@@ -17,11 +17,11 @@ int	ft_choose_zone(size_t nbr_of_bytes)
 int	ft_check_if_zone_is_full(int zone, size_t nbr_of_bytes)
 {
 	t_zone	*temp_zone;
-	int		is_full;	
+	int	is_full;	
 	int 	size;
 	
 	size = nbr_of_bytes + sizeof(t_block);
-	is_full = 1;
+	is_full = 1;//by default we considired as full
 
 	if (zone == 0)
 		temp_zone = g_zone_var.tiny;
@@ -56,7 +56,7 @@ void	*ft_find_the_best_free_block(int zone, size_t nbr_of_bytes)
 	{
 		if (temp_zone->largest_free_block_size >= nbr_of_bytes)
 		{
-			best_free_block = ft_resize_largest_free_block(nbr_of_bytes, temp_zone);
+			best_free_block = ft_resize_largest_free_block(nbr_of_bytes, temp_zone, zone);
 			//Get only required bytes and create new block with the remain bytes
 			//if the remain bytes enough to create new block, otherwise return the whole block
 		}
@@ -65,7 +65,7 @@ void	*ft_find_the_best_free_block(int zone, size_t nbr_of_bytes)
 	return (best_free_block);
 }
 
-void *ft_resize_largest_free_block(size_t nbr_of_bytes, t_zone *page_ptr)
+void *ft_resize_largest_free_block(size_t nbr_of_bytes, t_zone *page_ptr, int zone)
 {
     t_block *temp_block;
     t_block *new_block;
@@ -91,6 +91,7 @@ void *ft_resize_largest_free_block(size_t nbr_of_bytes, t_zone *page_ptr)
                 temp_block->next = new_block;
                 temp_block->size = aligned_size;
                 temp_block->free = 0;
+		temp_block->zone_id = zone;//indicate which zone belong the block (Tiny or small)
 
                 ft_update_largest_free_block_size(page_ptr);
 
@@ -101,7 +102,7 @@ void *ft_resize_largest_free_block(size_t nbr_of_bytes, t_zone *page_ptr)
                 // not enough room for a split, give entire block
                 ft_update_largest_free_block_size(page_ptr);
                 temp_block->free = 0;
-
+		temp_block->zone_id = zone;//indicate which zone belong the block (tiny or small)
                 return (void *)((char *)temp_block + sizeof(t_block));
             }
         }
