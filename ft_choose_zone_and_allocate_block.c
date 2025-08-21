@@ -44,6 +44,7 @@ void	*ft_find_the_best_free_block(int zone, size_t nbr_of_bytes)
 	//This funtion loop through zones and find the largest free block
 	t_zone	*temp_zone;
 	t_block	*best_free_block;
+	size_t aligned_size = ALIGN16(nbr_of_bytes); 
 
 	if (zone == 0)
 		temp_zone = g_zone_var.tiny;
@@ -54,9 +55,10 @@ void	*ft_find_the_best_free_block(int zone, size_t nbr_of_bytes)
 	
 	while (temp_zone != NULL)
 	{
-		if (temp_zone->largest_free_block_size >= nbr_of_bytes)
+		if (temp_zone->largest_free_block_size >= aligned_size)
 		{
 			best_free_block = ft_resize_largest_free_block(nbr_of_bytes, temp_zone, zone);
+			return (best_free_block);
 			//Get only required bytes and create new block with the remain bytes
 			//if the remain bytes enough to create new block, otherwise return the whole block
 		}
@@ -97,12 +99,12 @@ void *ft_resize_largest_free_block(size_t nbr_of_bytes, t_zone *page_ptr, int zo
 
                 return (void *)((char *)temp_block + sizeof(t_block));
             }
-            else
+            else if (temp_block->size >= aligned_size)
             {
                 // not enough room for a split, give entire block
-                ft_update_largest_free_block_size(page_ptr);
                 temp_block->free = 0;
 		temp_block->zone_id = zone;//indicate which zone belong the block (tiny or small)
+		ft_update_largest_free_block_size(page_ptr);
                 return (void *)((char *)temp_block + sizeof(t_block));
             }
         }

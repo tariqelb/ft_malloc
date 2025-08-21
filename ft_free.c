@@ -28,18 +28,23 @@ void	ft_merge_free_blocks(t_block *block)
 
 		printf("Free zone [%d]:\n", block->zone_id);
 		printf("Block addr [%p]:\n", block);
-		t_block *curr = temp_zone->blocks;
-		while (curr && curr->next)
+		while (temp_zone)
 		{
-    			if (curr->free && curr->next->free) 
+			t_block *curr = temp_zone->blocks;
+			while (curr && curr->next)
 			{
-        			curr->size += sizeof(t_block) + curr->next->size;
-        			curr->next = curr->next->next;
-    			} 
-			else
-			{
-        			curr = curr->next;
-    			}
+				if (curr->free && curr->next->free) 
+				{
+					curr->size += sizeof(t_block) + curr->next->size;
+					curr->next = curr->next->next;
+				} 
+				else
+				{
+					curr = curr->next;
+				}
+			}
+			ft_update_largest_free_block_size(temp_zone);
+			temp_zone = temp_zone->next;
 		}
 	}
 	else if (block->zone_id == 2)

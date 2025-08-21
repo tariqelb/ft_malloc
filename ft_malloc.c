@@ -46,26 +46,32 @@ void    ft_print_zone_info(t_zone *zone, const char *zone_name)
         return;
     }
 
-    printf("\n============= %s ZONE INFO =============\n", zone_name);
-    printf("Zone pointer      : %p\n", (void *)zone);
-    printf("Zone size         : %zu\n", zone->zone_size);
-    printf("Largest free block: %zu\n", zone->largest_free_block_size);
-    printf("t_zone struct size: %zu\n", sizeof(t_zone));
-    printf("t_block struct size: %zu\n", sizeof(t_block));
-    printf("----------------------------------------\n");
-
-    t_block *block = zone->blocks;
-    int i = 0;
-    while (block) 
+    while (zone)
     {
-        printf(" Block[%d] at %p\n", i, (void *)block);
-        printf("   size : %zu\n", block->size);
-        printf("   free : %d\n", block->free);
-        printf("   zone_id : %d\n", block->zone_id);
-        printf("   next : %p\n", (void *)block->next);
-        printf("----------------------------------------\n");
-        block = block->next;
-        i++;
+	    printf("\n============= %s ZONE INFO =============\n", zone_name);
+	    printf("Zone pointer      : %p\n", (void *)zone);
+	    printf("Zone next pointer      : %p\n", (void *)zone->next);
+	    printf("Zone size         : %zu\n", zone->zone_size);
+	    printf("Largest free block: %zu\n", zone->largest_free_block_size);
+	    printf("t_zone struct size: %zu\n", sizeof(t_zone));
+	    printf("t_block struct size: %zu\n", sizeof(t_block));
+	    printf("----------------------------------------\n");
+
+	    t_block *block = zone->blocks;
+	    int i = 0;
+	    while (block) 
+	    {
+		printf(" Block[%d] at %p\n", i, (void *)block);
+		printf(" Ptr[%d] at %p\n", i, (char *)block + 32);
+		printf("   size : %zu\n", block->size);
+		printf("   free : %d\n", block->free);
+		printf("   zone_id : %d\n", block->zone_id);
+		printf("   next : %p\n", (void *)block->next);
+		printf("----------------------------------------\n");
+		block = block->next;
+		i++;
+	    }
+	    zone = zone->next;
     }
 }
 
@@ -113,6 +119,8 @@ void	ft_print_large_zone(t_zone *zone, const char *zone_name)
 /*
 int main(void)
 {
+	printf("-----------------start of ft_malloc--------------\n");
+	printf("page size : [%d]\n", getpagesize());
 	size_t	sizes[3] = {5400, 6800, 9700};
 	int	i;
 	char *ptrs[3];
@@ -146,36 +154,47 @@ int main(void)
 
 int main(void)
 {
-	size_t sizes[5] = {63, 25, 15, 32, 5};//tiny
-	//size_t sizes[5] = {200, 250, 157, 64, 512};//small
-	void *ptrs[5];
 
-	for (int i = 0; i < 5; i++) 
+	printf("-----------------start of ft_malloc--------------\n");
+	printf("page size : [%d]\n", getpagesize());
+
+
+	//tiny
+	size_t	sizes[5] = {3, 5, 6, 7, 4};
+	int	max = 105;
+	void	*ptrs[max];
+
+	for (int i = 0; i < max; i++) 
 	{
-		printf("\n>>> Allocating %zu bytes...\n", sizes[i]);
-		ptrs[i] = ft_malloc(sizes[i]);
+		printf("\n>>> Allocating %d bytes...\n", 900);
+		ptrs[i] = ft_malloc(900);
 		if (ptrs[i] != NULL)
-			printf("ptr[%d] (size %zu) address = %p\n", i, sizes[i], ptrs[i]);
+			printf("ptr[%d] (size %d) address = %p\n", i, 900, ptrs[i]);
+		else
+			printf("PTR return null \n");
 
 		// Print state of SMALL zone after each alloc
 		//ft_print_zone_info(g_zone_var.small, "SMALL");//small
-		ft_print_zone_info(g_zone_var.tiny, "TINY");//tiny
 	}
+	//ft_print_zone_info(g_zone_var.tiny, "TINY");//tiny
+	ft_print_zone_info(g_zone_var.small, "SMALL");//tiny
 
 	
 	// ⚠️ Don't use munmap(ptr, size) → wrong
    	// You should implement ft_free() to mark blocks free.
  	// For now, just simulate freeing:
- 	for (int i = 0; i < 5; i++) 
+ 	for (int i = 0; i < max; i++) 
 	{
         	if (ptrs[i])
 		{
             		//printf("freeing ptr[%d] %p (fake free)\n", i, ptrs[i]);
+			printf ("index [%d]  : ", i);
             		ft_free(ptrs[i]); // TODO: implement properly
         	}
 	}
 
     	printf("---------------------------\n");
+	ft_print_zone_info(g_zone_var.small, "SMALL");//tiny
     	return (0);
 }
 
