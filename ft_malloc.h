@@ -95,9 +95,20 @@ t_zone	*ft_allocate_new_page(int zone);
 
 
 //---------------------------------------------------------------------
-
+//-----ft_free.c
 void	ft_free(void *ptr);
 void	ft_merge_free_blocks(t_block *block);
+
+
+//----------------------------------------------------------------------
+//-----ft_realloc.c
+void	*ft_realloc(void *ptr, size_t size);
+
+//----------------------------------------------------------------------
+//-----ft_show_alloc_mem.c
+void	ft_show_alloc_mem(void);
+
+
 
 
 
