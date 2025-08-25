@@ -1,13 +1,13 @@
 #include "ft_malloc.h"
 
-void	ft_free(void *ptr)
+void	free(void *ptr)
 {
 	t_block *block;
 	
 	block = (t_block *) ((char *)ptr - sizeof(t_block));
 	block->free = 1;
 
-	printf("Pointer addr : [%p]\n", ptr);
+	//printf("Pointer addr : [%p]\n", ptr);
 	ft_merge_free_blocks(block);
 	return;
 }
@@ -26,8 +26,8 @@ void	ft_merge_free_blocks(t_block *block)
 		if (block->zone_id == 1)
 			temp_zone = g_zone_var.small;
 
-		printf("Free zone [%d]:\n", block->zone_id);
-		printf("Block addr [%p]:\n", block);
+		//printf("Free zone [%d]:\n", block->zone_id);
+		//printf("Block addr [%p]:\n", block);
 		while (temp_zone)
 		{
 			t_block *curr = temp_zone->blocks;
@@ -61,8 +61,8 @@ void	ft_merge_free_blocks(t_block *block)
 				else
 			    		g_zone_var.large = curr->next;
 
-				printf("Block addr %p\n", block);
-				printf("Free large zone ptr : %p\n", curr);
+		//		printf("Block addr %p\n", block);
+		//		printf("Free large zone ptr : %p\n", curr);
 				munmap(curr, curr->zone_size);
 				return;
 		    	}

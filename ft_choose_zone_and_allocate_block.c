@@ -5,7 +5,7 @@ int	ft_choose_zone(size_t nbr_of_bytes)
 {
 	int zone = -1;
 
-        if (nbr_of_bytes >= 0 && nbr_of_bytes <= TINY)
+        if (nbr_of_bytes <= TINY)
         	return (0);     
         else if (nbr_of_bytes > TINY && nbr_of_bytes <= SMALL )
 		return (1);
@@ -30,7 +30,7 @@ int	ft_check_if_zone_is_full(int zone, size_t nbr_of_bytes)
 
 	while (temp_zone != NULL)
 	{
-		if (temp_zone->largest_free_block_size >= size)
+		if (temp_zone->largest_free_block_size >= (size_t) size)
 		    return (0);
 		temp_zone = temp_zone->next;	
 	}
@@ -89,6 +89,7 @@ void *ft_resize_largest_free_block(size_t nbr_of_bytes, t_zone *page_ptr, int zo
                 new_block->next = temp_block->next;
                 new_block->size = temp_block->size - aligned_size - sizeof(t_block);
                 new_block->free = 1;
+                new_block->zone_id = zone;
 
                 temp_block->next = new_block;
                 temp_block->size = aligned_size;
@@ -115,7 +116,7 @@ void *ft_resize_largest_free_block(size_t nbr_of_bytes, t_zone *page_ptr, int zo
 
 void	ft_update_largest_free_block_size(t_zone *page_ptr)
 {
-	int 	new_size;
+	size_t 	new_size;
 	t_block *temp_block;
 
 	temp_block = page_ptr->blocks;

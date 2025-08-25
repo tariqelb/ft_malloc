@@ -2,11 +2,14 @@
 # define FT_MALLOC_H
 
 # include <unistd.h>
+# include <string.h>
 # include <stdint.h>
 # include <stdio.h>
 # include <sys/mman.h>
 # include <sys/resource.h>
 # include <pthread.h> //for mutex
+# include <errno.h>
+
 
 
 //TINY: allocations up to 64 bytes
@@ -93,16 +96,19 @@ void    *ft_allocate_large_zone(size_t nbr_of_bytes);
 t_zone	*ft_allocate_new_page(int zone);
 
 
+//---------------------------------------------------------------------
+//-----ft_malloc.c
+void	*malloc(size_t nbr_of_bytes);
 
 //---------------------------------------------------------------------
 //-----ft_free.c
-void	ft_free(void *ptr);
+void	free(void *ptr);
 void	ft_merge_free_blocks(t_block *block);
 
 
 //----------------------------------------------------------------------
 //-----ft_realloc.c
-void	*ft_realloc(void *ptr, size_t size);
+void	*realloc(void *ptr, size_t size);
 
 //----------------------------------------------------------------------
 //-----ft_show_alloc_mem.c

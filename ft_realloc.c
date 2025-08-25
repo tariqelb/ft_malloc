@@ -1,20 +1,19 @@
 #include "ft_malloc.h"
 
 
-void	*ft_realloc(void *ptr, size_t size)
+void	*realloc(void *ptr, size_t size)
 {
 	t_block	*block;
 	t_block	*new_block;
 	size_t	aligned_size;
 	int	zone;
-	t_zone	*temp_zone;
 	void	*new_ptr;
 
     	if (!ptr)
-        	return ft_malloc(size);
+        	return malloc(size);
  	if (size == 0)
 	{	
-        	ft_free(ptr);
+        	free(ptr);
         	return (NULL);
     	}
 	block = (t_block *)((char *) ptr - sizeof(t_block));
@@ -26,11 +25,11 @@ void	*ft_realloc(void *ptr, size_t size)
 	zone = ft_choose_zone(size);
 	if (zone == 2 || zone != block->zone_id) 
 	{
-        	new_ptr = ft_malloc(size);
+        	new_ptr = malloc(size);
         	if (!new_ptr)
 			return NULL;
         	memcpy(new_ptr, ptr, block->size);
-        	ft_free(ptr);
+        	free(ptr);
         	return (new_ptr);
  	}
 
@@ -56,6 +55,7 @@ void	*ft_realloc(void *ptr, size_t size)
 	//check if next block is free and have the number of bytes needed
 	if (block->next && block->next->free == 1)
 	{
+		printf(" first here ....\n");
 		size_t total = block->size + sizeof(t_block) + block->next->size;
 		if (aligned_size <= total)
 		{
@@ -85,14 +85,14 @@ void	*ft_realloc(void *ptr, size_t size)
 				// block->free = 0; // already allocated
 			}
 		}
+		return (ptr);
 	}
-	
-	new_ptr = ft_malloc(size);
+	new_ptr = malloc(size);
    	if (!new_ptr)
         	return NULL;
  	size_t to_copy = block->size < aligned_size ? block->size : aligned_size;
  	memcpy(new_ptr, ptr, to_copy);
- 	ft_free(ptr);
+ 	free(ptr);
     		return (new_ptr);
 }
 
