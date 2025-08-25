@@ -1,0 +1,6 @@
+### To run this main test execute those two commands
+## 1 - comiple main with library ->
+gcc main.c -L. -lft_malloc -o main
+## 2 - force to preload library at run time ->    
+LD_LIBRARY_PATH=$PWD LD_PRELOAD=$PWD/libft_malloc.so ./main
+
