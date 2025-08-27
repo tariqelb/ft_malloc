@@ -49,7 +49,7 @@ int	ft_check_error(size_t nbr_of_bytes)
 	total_size = sizeof(t_zone) + sizeof(t_block);
 	if (ft_add_overflow_size(total_size, nbr_of_bytes, &total))
 		return (ft_print_error());
-	aligned_size = ALIGN16(total);
+	aligned_size = align16(total);
 	if (aligned_size < total)
 		return (ft_print_error());
 	getrlimit(RLIMIT_AS, &lim);
@@ -83,7 +83,7 @@ void	*ft_allocate_large_zone(size_t nbr_of_bytes)
 
 	if (ft_check_error(nbr_of_bytes))
 		return (NULL);
-	aligned_size = ALIGN16((sizeof(t_zone) + sizeof(t_block) + nbr_of_bytes));
+	aligned_size = align16((sizeof(t_zone) + sizeof(t_block) + nbr_of_bytes));
 	zone = ft_map(aligned_size);
 	if (zone == NULL)
 		return (NULL);

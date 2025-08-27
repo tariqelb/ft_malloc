@@ -6,7 +6,7 @@
 /*   By: tel-bouh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 19:09:48 by tel-bouh          #+#    #+#             */
-/*   Updated: 2025/08/27 19:09:51 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2025/08/28 00:00:41 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	*realloc(void *ptr, size_t size)
         	return (NULL);
     	}
 	block = (t_block *)((char *) ptr - sizeof(t_block));
-	aligned_size = ALIGN16(size);
+	aligned_size = align16(size);
 	
 	if (block->size >= aligned_size)
 		return (ptr);
@@ -106,6 +106,3 @@ void	*realloc(void *ptr, size_t size)
  	free(ptr);
     		return (new_ptr);
 }
-
-
-

@@ -3,7 +3,8 @@ LINK = libft_malloc.so
 
 SRCS = ft_allocate_large_zone.c \
        ft_allocate_new_page.c \
-       ft_choose_zone_and_allocate_block.c \
+       ft_choose_zone.c \
+       ft__allocate_block.c \
        ft_free.c \
        ft_handle_error.c \
        ft_malloc.c \
