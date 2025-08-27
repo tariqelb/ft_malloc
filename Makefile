@@ -8,7 +8,10 @@ SRCS = ft_allocate_large_zone.c \
        ft_handle_error.c \
        ft_malloc.c \
        ft_realloc.c \
-       ft_show_alloc_mem.c
+       ft_show_alloc_mem.c \
+       ft_printf.c \
+       ft_printf_utils.c \
+       ft_map.c
 
 OBJS = $(SRCS:.c=.o)
 

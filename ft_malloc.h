@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_malloc.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tel-bouh <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/27 19:08:51 by tel-bouh          #+#    #+#             */
+/*   Updated: 2025/08/27 20:02:05 by tel-bouh         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FT_MALLOC_H
 # define FT_MALLOC_H
 
@@ -9,6 +21,21 @@
 # include <sys/resource.h>
 # include <pthread.h> //for mutex
 # include <errno.h>
+
+
+//ft_printf headers
+
+# include <unistd.h>
+# include <stdarg.h>
+
+int	ft_printf(const char *str, ...);
+int	ft_put_unsignedint(unsigned int nbr);
+int	ft_putint(int nbr);
+int	ft_puthex(unsigned int nbr, int flag);
+int	ft_putstr(char *str);
+int	ft_putchar(char c);
+
+//end  
 
 
 
@@ -23,6 +50,8 @@
 
 #define ALIGN(x, a) (((x) + ((a) - 1)) & ~((a) - 1))  // round up to multiple of a
 #define ALIGN16(x) ALIGN((x), 16)                     // shorthand for 16-byte alignment
+
+typedef struct rlimit t_rlimit;
 
 
 typedef struct s_block {
@@ -112,9 +141,13 @@ void	*realloc(void *ptr, size_t size);
 
 //----------------------------------------------------------------------
 //-----ft_show_alloc_mem.c
-void	ft_show_alloc_mem(void);
 
 
+void	show_alloc_mem(void);
+
+//----ft_map.c
+t_zone	*ft_map(size_t alined_size);
+void	*ft_return_ptr(t_block *block);
 
 
 

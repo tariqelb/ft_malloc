@@ -1,19 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_handle_error.c                                  :+:      :+:    :+:   */
+/*   ft_map.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tel-bouh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/27 19:08:14 by tel-bouh          #+#    #+#             */
-/*   Updated: 2025/08/27 19:08:15 by tel-bouh         ###   ########.fr       */
+/*   Created: 2025/08/27 19:09:11 by tel-bouh          #+#    #+#             */
+/*   Updated: 2025/08/27 19:57:23 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_malloc.h"
 
-void	ft_handle_negative_size(void)
+t_zone	*ft_map(size_t aligned_size)
 {
-	write (2, "Cannot allocate memory.", 23);
-	return ;
+	t_zone	*zone;
+
+	zone = mmap(NULL, aligned_size, PROT_READ
+			| PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+	if (zone == MAP_FAILED)
+	{
+		perror("mmap failed: ");
+		return (NULL);
+	}
+	return (zone);
+}
+
+void	*ft_return_ptr(t_block *block)
+{
+	void	*ptr;
+
+	ptr = (void *)((char *) block + sizeof(t_block));
+	return (ptr);
 }

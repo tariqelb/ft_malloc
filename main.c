@@ -29,7 +29,7 @@ int	main(void)
 	}
 
 	printf("----------------------end of ft_malloc-----------------\n");
-	ft_show_alloc_mem();
+	show_alloc_mem();
 
 	index = 0;
 	printf("-------------------------ft_realloc-----------------\n");
@@ -40,7 +40,7 @@ int	main(void)
 	}
 
 	printf("--------------------end of ft_realloc-----------------\n");
-	ft_show_alloc_mem();
+	show_alloc_mem();
 
 	index = 0;
 	printf("-------------------------ft_free-----------------\n");
@@ -50,20 +50,34 @@ int	main(void)
 		index++;
 	}
 	printf("--------------------end of ft_free-----------------\n");
-	ft_show_alloc_mem();
+	show_alloc_mem();
 */
-
+/*
 	void	*ptr[3];
 
 	ptr[0] = malloc(500);
-	ft_show_alloc_mem();
+	show_alloc_mem();
 	ptr[1] = malloc(500);
-	ft_show_alloc_mem();
+	show_alloc_mem();
 	free(ptr[1]);
 	ptr[0] = realloc(ptr[0], 900);
-	ft_show_alloc_mem();
+	show_alloc_mem();
 	free(ptr[0]);
 	free(ptr[1]);
-	ft_show_alloc_mem();
+	show_alloc_mem();
+*/
+	void	*ptr[3];
+
+	ptr[0] = malloc(50);
+	show_alloc_mem();
+	ptr[1] = malloc(19);
+	show_alloc_mem();
+	free(ptr[1]);
+	ptr[0] = realloc(ptr[0], 31);
+	show_alloc_mem();
+	free(ptr[0]);
+	free(ptr[1]);
+	show_alloc_mem();
+
 	return (0);
 }
