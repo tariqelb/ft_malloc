@@ -6,7 +6,7 @@
 /*   By: tel-bouh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 19:09:11 by tel-bouh          #+#    #+#             */
-/*   Updated: 2025/08/27 23:09:29 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2025/08/28 18:36:00 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ void	*ft_return_ptr(t_block *block)
 	return (ptr);
 }
 
-static inline size_t	align(size_t x, size_t a)
+size_t	align(size_t x, size_t a)
 {
 	return ((x + (a - 1)) & ~(a - 1));
 }
 
-static inline size_t	align16(size_t x)
+size_t	align16(size_t x)
 {
 	return (align(x, 16));
 }

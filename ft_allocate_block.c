@@ -6,7 +6,7 @@
 /*   By: tel-bouh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 23:43:24 by tel-bouh          #+#    #+#             */
-/*   Updated: 2025/08/27 23:56:48 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2025/08/28 18:40:37 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	*ft_find_the_best_free_block(int zone, size_t nbr_of_bytes)
 	t_block	*best_free_block;
 	size_t	aligned_size;
 
-	aligned_size = aligne16(nbr_of_bytes);
+	aligned_size = align16(nbr_of_bytes);
 	if (zone == 0)
 		temp_zone = g_zone_var.tiny;
 	else
@@ -46,7 +46,7 @@ void	*ft_return_whole_block(t_block *temp_block, int zone, t_zone *page_ptr)
 }
 
 void	*ft_split_block(t_block *temp_block,
-		size_t alinged_size, int zone, t_zone *page_ptr)
+		size_t aligned_size, int zone, t_zone *page_ptr)
 {
 	t_block	*new_block;
 
@@ -82,7 +82,7 @@ void	*ft_resize_largest_free_block(size_t nbr_of_bytes,
 				return (ft_split_block(temp_block,
 						aligned_size, zone, page_ptr));
 			else if (temp_block->size >= aligned_size)
-				return (ft_return_zhole_block(temp_block, zone, page_ptr));
+				return (ft_return_whole_block(temp_block, zone, page_ptr));
 		}
 		temp_block = temp_block->next;
 	}

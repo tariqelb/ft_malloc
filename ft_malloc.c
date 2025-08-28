@@ -6,13 +6,13 @@
 /*   By: tel-bouh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 19:08:35 by tel-bouh          #+#    #+#             */
-/*   Updated: 2025/08/27 19:56:14 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2025/08/28 18:40:59 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./ft_malloc.h"
 
-g_zone_hold	g_zone_var = {NULL, NULL, NULL, 0};
+t_g_zone_hold	g_zone_var = {NULL, NULL, NULL, 0};
 
 void	*malloc(size_t nbr_of_bytes)
 {
