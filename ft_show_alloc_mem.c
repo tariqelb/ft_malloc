@@ -6,7 +6,7 @@
 /*   By: tel-bouh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 19:10:12 by tel-bouh          #+#    #+#             */
-/*   Updated: 2025/08/28 18:49:47 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2025/08/29 20:36:12 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,14 @@ void	ft_display_zone_header(int i, t_zone *zone)
 	ft_printf("-----------Blocks start----------------------\n");
 }
 
-void	ft_display_zone(int i, t_zone *zone)
+void	ft_display_zone(int i, t_zone *zone, char *zone_name)
 {
 	t_block	*block;
 	int	j;
 
 	i = 0;
 	ft_printf("---------------------------------------------\n");
-	ft_printf("----------START OF TINY ZONE-----------------\n");
+	ft_printf("----------START OF %s ZONE-----------------\n", zone_name);
 	ft_printf("Display tiny zone :\n");
 	while (zone)
 	{
@@ -74,15 +74,15 @@ void	show_alloc_mem(void)
 	small = g_zone_var.small;
 	large = g_zone_var.large;
 	if (tiny)
-		ft_display_zone(i, tiny);
+		ft_display_zone(i, tiny, "TINY");
 	else
 		ft_printf("-------------------Tiny zone is empty-------------\n");
 	if (small)
-		ft_display_zone(i, small);
+		ft_display_zone(i, small, "SMALL");
 	else
 		printf("-----------------Small zone is empty---------------\n");
 	if (large)
-		ft_display_zone(i, large);
+		ft_display_zone(i, large, "LARGE");
 	else
 		printf("-----------------Large zone is empty---------------\n");
 }

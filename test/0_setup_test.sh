@@ -37,19 +37,24 @@ if [ $? -ne 0 ]; then
     echo "ERROR: 'make re' rule failed."
     exit 1
 fi
+make fclean
 
 # 3. Check library and symlink creation
 echo "Checking library file naming convention..."
-export HOSTYPE="Testing"
-make re > /dev/null 2>&1
+export HOSTTYPE="Testing"
+echo "----HOSTTYPE EXPORT : [$HOSTTYPE]----"
 
+make re > /dev/null 2>&1
+make clean
 if [ ! -f "libft_malloc_Testing.so" ]; then
-    echo "ERROR: Library not named correctly (libft_malloc_\$HOSTYPE.so)."
+    echo "ERROR: Library not named correctly (libft_malloc_${HOSTYYPE}.so)."
+    make fclean
     exit 1
 fi
 
 if [ ! -L "libft_malloc.so" ]; then
     echo "ERROR: Symbolic link 'libft_malloc.so' not created."
+    make fclean
     exit 1
 fi
 
@@ -57,8 +62,11 @@ fi
 LINK_TARGET=$(readlink -f libft_malloc.so)
 if [ "$LINK_TARGET" != "$(pwd)/libft_malloc_Testing.so" ]; then
     echo "ERROR: Symlink points to wrong target."
+    make fclean
     exit 1
 fi
 
+#clean
+make fclean
 echo "✓ All preliminary checks passed."
 echo ""

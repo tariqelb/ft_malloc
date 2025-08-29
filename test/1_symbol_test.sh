@@ -2,6 +2,10 @@
 
 # Test 1: Check if required symbols are exported
 echo "=== Test 1: Symbol Exports ==="
+export HOSTTYPE="Testing"
+echo "----HOSTTYPE EXPORT : [$HOSTTYPE]----"
+
+make re
 
 # Use nm to list symbols
 NM_OUTPUT=$(nm -D libft_malloc_Testing.so)
@@ -20,6 +24,8 @@ if [ -n "$MISSING_SYMS" ]; then
     echo "ERROR: Missing symbols:$MISSING_SYMS"
     exit 1
 fi
+
+make fclean
 
 echo "✓ All required symbols are exported."
 echo ""

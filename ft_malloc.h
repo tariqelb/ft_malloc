@@ -6,7 +6,7 @@
 /*   By: tel-bouh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 19:08:51 by tel-bouh          #+#    #+#             */
-/*   Updated: 2025/08/28 18:53:34 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2025/08/29 18:02:39 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@
 # include <stddef.h>
 
 //TINY: allocations up to 64 bytes
-//SMALL: allocations 65 to 1024 bytes
-//LARGE: allocations > 1024 bytes (own mmap)
+//SMALL: allocations 65 to 131071 bytes
+//LARGE: allocations >= 131072 bytes (own mmap)
 
 # define TINY 64
-# define SMALL 1023
-# define LARGE 1024
+# define SMALL 131071
+# define LARGE 131072
 
 typedef struct rlimit	t_rlimit;
 

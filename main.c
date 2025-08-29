@@ -11,7 +11,7 @@
 
 int	main(void)
 {
-/*	size_t	nbr_of_bytes;
+	size_t	nbr_of_bytes;
 	size_t	resize;
 	int	max = 70;
 	void	*ptr[max];
@@ -51,7 +51,7 @@ int	main(void)
 	}
 	printf("--------------------end of ft_free-----------------\n");
 	show_alloc_mem();
-*/
+
 /*
 	void	*ptr[3];
 
@@ -66,7 +66,7 @@ int	main(void)
 	free(ptr[1]);
 	show_alloc_mem();
 */
-	void	*ptr[3];
+/*	void	*ptr[3];
 
 	ptr[0] = malloc(50);
 	show_alloc_mem();
@@ -78,6 +78,6 @@ int	main(void)
 	free(ptr[0]);
 	free(ptr[1]);
 	show_alloc_mem();
-
+*/
 	return (0);
 }
