@@ -6,7 +6,6 @@ SRCS = ft_allocate_large_zone.c \
        ft_choose_zone.c \
        ft_allocate_block.c \
        ft_free.c \
-       ft_handle_error.c \
        ft_malloc.c \
        ft_realloc.c \
        ft_show_alloc_mem.c \

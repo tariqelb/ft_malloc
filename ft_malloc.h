@@ -6,7 +6,7 @@
 /*   By: tel-bouh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 19:08:51 by tel-bouh          #+#    #+#             */
-/*   Updated: 2025/08/29 18:02:39 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2025/09/01 19:42:35 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,15 @@
 //LARGE: allocations >= 131072 bytes (own mmap)
 
 # define TINY 64
-# define SMALL 131071
-# define LARGE 131072
+# define SMALL 1023//131071
+# define LARGE 1024//131072
 
 typedef struct rlimit	t_rlimit;
 
 typedef struct s_block
 {
 	size_t		size;
+	size_t		free_var_for_alignment;
 	int		free;
 	int		zone_id;
 	struct s_block	*next;
@@ -79,9 +80,6 @@ t_zone	*ft_map(size_t alined_size);
 void	*ft_return_ptr(t_block *block);
 size_t	align(size_t x, size_t a);
 size_t	align16(size_t x);
-
-//----ft_handle_error.c
-void	ft_handle_negative_size(void);
 
 //----ft_choose_zone.c
 //Description: The function take nbr of bytes handle

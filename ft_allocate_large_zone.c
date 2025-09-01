@@ -6,7 +6,7 @@
 /*   By: tel-bouh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 19:07:03 by tel-bouh          #+#    #+#             */
-/*   Updated: 2025/08/27 19:58:44 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2025/09/01 19:32:10 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,14 @@ static int	ft_add_overflow_size(size_t a, size_t b, size_t *out)
 	return (__builtin_add_overflow(a, b, out));
 }
 
-int	ft_print_error(void)
+int	ft_print_error(char *error)
 {
-	errno = ENOMEM;
-	perror("Large number > size_t : ");
+	int	i;
+
+	i = 0;
+	while (error[i])
+		i++;
+	write(2, error, i);
 	return (1);
 }
 
@@ -48,20 +52,20 @@ int	ft_check_error(size_t nbr_of_bytes)
 	max_va_conservative = (size_t)1ULL << 47;
 	total_size = sizeof(t_zone) + sizeof(t_block);
 	if (ft_add_overflow_size(total_size, nbr_of_bytes, &total))
-		return (ft_print_error());
+		return (ft_print_error("error\n"));
 	aligned_size = align16(total);
 	if (aligned_size < total)
-		return (ft_print_error());
+		return (ft_print_error("error\n"));
 	getrlimit(RLIMIT_AS, &lim);
 	if (aligned_size > lim.rlim_cur)
-		return (ft_print_error());
+		return (ft_print_error("error\n"));
 	if (getrlimit(RLIMIT_AS, &lim) == 0 && lim.rlim_cur != RLIM_INFINITY)
 	{
 		if ((unsigned long long)aligned_size > (unsigned long long)lim.rlim_cur)
-			return (ft_print_error());
+			return (ft_print_error("error\n"));
 	}
 	else if (aligned_size > max_va_conservative)
-		return (ft_print_error());
+		return (ft_print_error("error\n"));
 	return (0);
 }
 
@@ -84,6 +88,7 @@ void	*ft_allocate_large_zone(size_t nbr_of_bytes)
 	if (ft_check_error(nbr_of_bytes))
 		return (NULL);
 	aligned_size = align16((sizeof(t_zone) + sizeof(t_block) + nbr_of_bytes));
+	ft_printf("aligned large %l %l %l\n", aligned_size , sizeof(t_zone), sizeof(t_block));
 	zone = ft_map(aligned_size);
 	if (zone == NULL)
 		return (NULL);

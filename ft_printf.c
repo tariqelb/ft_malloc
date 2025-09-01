@@ -6,11 +6,33 @@
 /*   By: tel-bouh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 22:30:19 by tel-bouh          #+#    #+#             */
-/*   Updated: 2025/08/27 19:35:56 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2025/09/01 17:59:50 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_malloc.h"
+
+int ft_putsize_t(size_t nbr)
+{
+    char tab[32];       // enough to hold 64-bit number
+    int  i = 0;
+    int  nb = 0;
+
+    if (nbr == 0)
+        return ft_putstr("0");
+
+    while (nbr)
+    {
+        tab[i++] = (nbr % 10) + '0';
+        nbr /= 10;
+    }
+
+    nb = i;
+    while (i)
+        write(1, &tab[--i], 1);
+
+    return nb;
+}
 
 static int	ft_puthex_add(unsigned long long int nbr)
 {
@@ -41,7 +63,7 @@ static int	ft_specifier(char c)
 	int		i;
 	char	*specifiers;
 
-	specifiers = "cspdiuxX";
+	specifiers = "cspdiuxXl";
 	i = 0;
 	while (specifiers[i])
 	{
@@ -65,6 +87,8 @@ static int	ft_switch_case(va_list arg_list, char c, int nb)
 	}
 	else if (c == 'd')
 		nb = nb + ft_putint(va_arg(arg_list, int));
+	else if (c == 'l')
+		nb = nb + ft_putsize_t(va_arg(arg_list, int));
 	else if (c == 'i')
 		nb = nb + ft_putint(va_arg(arg_list, int));
 	else if (c == 'u')
