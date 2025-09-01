@@ -6,7 +6,7 @@
 /*   By: tel-bouh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 19:08:51 by tel-bouh          #+#    #+#             */
-/*   Updated: 2025/09/01 19:42:35 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2025/09/01 19:53:58 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@
 //LARGE: allocations >= 131072 bytes (own mmap)
 
 # define TINY 64
-# define SMALL 1023//131071
-# define LARGE 1024//131072
+# define SMALL 131071
+# define LARGE 131072
 
 typedef struct rlimit	t_rlimit;
 
