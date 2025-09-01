@@ -13,7 +13,7 @@ int	main(void)
 {
 	size_t	nbr_of_bytes;
 	size_t	resize;
-	int	max = 70;
+	int	max = 170;
 	void	*ptr[max];
 	int	index;
 
@@ -40,7 +40,7 @@ int	main(void)
 	}
 
 	printf("--------------------end of ft_realloc-----------------\n");
-	show_alloc_mem();
+//	show_alloc_mem();
 
 	index = 0;
 	printf("-------------------------ft_free-----------------\n");
@@ -50,7 +50,7 @@ int	main(void)
 		index++;
 	}
 	printf("--------------------end of ft_free-----------------\n");
-	show_alloc_mem();
+//	show_alloc_mem();
 
 /*
 	void	*ptr[3];

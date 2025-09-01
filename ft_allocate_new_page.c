@@ -34,6 +34,10 @@ void	ft_push_zone(int zone_index, t_zone *zone)
 			temp_zone = temp_zone->next;
 		temp_zone->next = zone;
 	}
+	if (zone_index == 0)
+		g_zone_var.tiny = temp_zone;
+	else
+		g_zone_var.small = temp_zone;
 }
 
 t_zone	*ft_allocate_new_page(int zone_index)
