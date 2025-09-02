@@ -8,6 +8,7 @@ SRCS = ft_allocate_large_zone.c \
        ft_free.c \
        ft_malloc.c \
        ft_realloc.c \
+       ft_realloc_utils.c \
        ft_show_alloc_mem.c \
        ft_printf.c \
        ft_printf_utils.c \

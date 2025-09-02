@@ -6,32 +6,31 @@
 /*   By: tel-bouh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/22 22:30:19 by tel-bouh          #+#    #+#             */
-/*   Updated: 2025/09/01 17:59:50 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2025/09/02 19:08:40 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_malloc.h"
 
-int ft_putsize_t(size_t nbr)
+int	ft_putsize_t(size_t nbr)
 {
-    char tab[32];       // enough to hold 64-bit number
-    int  i = 0;
-    int  nb = 0;
+	char	tab[32];
+	int	i;
+	int	nb;
 
-    if (nbr == 0)
-        return ft_putstr("0");
-
-    while (nbr)
-    {
-        tab[i++] = (nbr % 10) + '0';
-        nbr /= 10;
-    }
-
-    nb = i;
-    while (i)
-        write(1, &tab[--i], 1);
-
-    return nb;
+	i = 0;
+	nb = 0;
+	if (nbr == 0)
+		return (ft_putstr("0"));
+	while (nbr)
+	{
+		tab[i++] = (nbr % 10) + '0';
+		nbr /= 10;
+	}
+	nb = i;
+	while (i)
+		write(1, &tab[--i], 1);
+	return (nb);
 }
 
 static int	ft_puthex_add(unsigned long long int nbr)

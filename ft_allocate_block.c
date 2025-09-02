@@ -6,7 +6,7 @@
 /*   By: tel-bouh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 23:43:24 by tel-bouh          #+#    #+#             */
-/*   Updated: 2025/08/28 18:40:37 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2025/09/02 19:02:56 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	*ft_split_block(t_block *temp_block,
 	new_block->next = temp_block->next;
 	new_block->size = temp_block->size - aligned_size - sizeof(t_block);
 	new_block->free = 1;
+	new_block->magic_number = BLOCK_MAGIC;
 	new_block->zone_id = zone;
 	temp_block->next = new_block;
 	temp_block->size = aligned_size;

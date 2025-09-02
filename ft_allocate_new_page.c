@@ -6,7 +6,7 @@
 /*   By: tel-bouh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 19:07:40 by tel-bouh          #+#    #+#             */
-/*   Updated: 2025/09/01 22:10:48 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2025/09/02 19:09:27 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ t_zone	*ft_allocate_new_page(int zone_index)
 	t_zone	*zone;
 
 	if (zone_index == 0)
-		page_size = 16 * g_zone_var.mapping_size;//16
+		page_size = 16 * g_zone_var.mapping_size;
 	else
-		page_size = 273 * g_zone_var.mapping_size;//1024
+		page_size = 1024 * g_zone_var.mapping_size;
 	zone = mmap(NULL, page_size, PROT_READ
 			| PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
 	if (zone == MAP_FAILED)

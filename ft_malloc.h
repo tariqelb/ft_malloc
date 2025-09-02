@@ -6,7 +6,7 @@
 /*   By: tel-bouh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 19:08:51 by tel-bouh          #+#    #+#             */
-/*   Updated: 2025/09/01 19:53:58 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2025/09/02 19:13:48 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,14 @@
 # define SMALL 131071
 # define LARGE 131072
 
+# define BLOCK_MAGIC 0xDEADBEEF
+
 typedef struct rlimit	t_rlimit;
 
 typedef struct s_block
 {
 	size_t		size;
-	size_t		free_var_for_alignment;
+	size_t		magic_number;
 	int		free;
 	int		zone_id;
 	struct s_block	*next;
@@ -134,6 +136,11 @@ void	*malloc(size_t nbr_of_bytes);
 //-----ft_free.c
 void	free(void *ptr);
 void	ft_merge_free_blocks(t_block *block);
+
+//-----------------------------------------------------
+//----ft_realloc_utils.c
+void	*ft_first_check(void *ptr, size_t size, int *zone, t_block *block);
+void	*ft_second_check(void *ptr, size_t size, int *zone, t_block *block);
 
 //-----------------------------------------------------
 //-----ft_realloc.c

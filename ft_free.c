@@ -6,7 +6,7 @@
 /*   By: tel-bouh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 19:07:54 by tel-bouh          #+#    #+#             */
-/*   Updated: 2025/08/27 19:08:02 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2025/09/02 19:09:52 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,21 @@ void	ft_merge_free_blocks(t_block *block)
 
 void	free(void *ptr)
 {
-	t_block	*block;
+	t_block		*block;
+	uintptr_t	addr_ptr;
 
+	addr_ptr = (uintptr_t) ptr;
+	if (addr_ptr % 16)
+	{
+		write(2, "Invalid pointer\n", 16);
+		return ;
+	}
 	block = (t_block *)((char *)ptr - sizeof(t_block));
+	if (block->magic_number != BLOCK_MAGIC)
+	{
+		write(2, "Invalid pointer\n", 16);
+		return ;
+	}
 	block->free = 1;
 	ft_merge_free_blocks(block);
 	return ;

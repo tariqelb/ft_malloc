@@ -6,39 +6,11 @@
 /*   By: tel-bouh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 19:09:48 by tel-bouh          #+#    #+#             */
-/*   Updated: 2025/08/28 18:48:08 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2025/09/02 19:19:00 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_malloc.h"
-
-void	*ft_first_check(void *ptr, size_t size, int *zone, t_block *block)
-{
-	size_t	aligned_size;
-	void	*new_ptr;
-
-	aligned_size = align16(16);
-	if (!ptr)
-		return (malloc(size));
-	if (size == 0)
-	{
-		free(ptr);
-		return (NULL);
-	}
-	if (block->size >= aligned_size)
-		return (ptr);
-	if (*zone == 2 || *zone != block->zone_id)
-	{
-		new_ptr = malloc(size);
-		if (!new_ptr)
-			return (NULL);
-		memcpy(new_ptr, ptr, block->size);
-		free(ptr);
-		return (new_ptr);
-	}
-	*zone = 4;
-	return (ptr);
-}
 
 //this function use the same block because its 
 //size enough and split it if the remain bytes
@@ -54,6 +26,7 @@ void	*ft_use_the_block(t_block *block, void *ptr, size_t aligned_size)
 		new_block = (t_block *)((char *)block + sizeof(t_block) + aligned_size);
 		new_block->size = excess - sizeof(t_block);
 		new_block->free = 1;
+		new_block->magic_number = BLOCK_MAGIC;
 		new_block->next = block->next;
 		new_block->zone_id = block->zone_id;
 		block->size = aligned_size;
@@ -81,6 +54,7 @@ void	*ft_use_next_free_block(t_block *block, void *ptr, size_t aligned_size)
 					+ sizeof(t_block) + aligned_size);
 			new_block->size = total - aligned_size - sizeof(t_block);
 			new_block->free = 1;
+			new_block->magic_number = BLOCK_MAGIC;
 			new_block->zone_id = block->zone_id;
 			new_block->next = block->next->next;
 			block->size = aligned_size;
@@ -119,14 +93,22 @@ void	*realloc(void *ptr, size_t size)
 	size_t	aligned_size;
 	void	*new_ptr;
 	int	zone;
+	int	temp_zone;
 
 	block = (t_block *)((char *) ptr - sizeof(t_block));
+	if (block->magic_number != BLOCK_MAGIC)
+		return (NULL);
 	aligned_size = align16(size);
 	zone = ft_choose_zone(size);
+	temp_zone = zone;
 	new_ptr = ft_first_check(ptr, size, &zone, block);
 	if (zone != 4)
 		return (new_ptr);
-	zone = ft_choose_zone(size);
+	zone = temp_zone;
+	new_ptr = ft_second_check(ptr, size, &zone, block);
+	if (zone != 4)
+		return (new_ptr);
+	zone = temp_zone;
 	if (block->size >= aligned_size)
 		return (ft_use_the_block(block, ptr, aligned_size));
 	if (block->next && block->next->free == 1)

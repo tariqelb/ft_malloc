@@ -6,7 +6,7 @@
 /*   By: tel-bouh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 19:07:03 by tel-bouh          #+#    #+#             */
-/*   Updated: 2025/09/01 19:51:30 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2025/09/02 19:02:08 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ void	*ft_allocate_large_zone(size_t nbr_of_bytes)
 	block = zone->blocks;
 	block->size = aligned_size - sizeof(t_zone) - sizeof(t_block);
 	block->free = 0;
+	block->magic_number = BLOCK_MAGIC;
 	block->next = NULL;
 	block->zone_id = 2;
 	if (g_zone_var.large == NULL)

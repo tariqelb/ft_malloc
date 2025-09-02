@@ -6,7 +6,7 @@
 /*   By: tel-bouh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 19:10:12 by tel-bouh          #+#    #+#             */
-/*   Updated: 2025/09/01 17:58:58 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2025/09/02 19:15:08 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ void	ft_display_block(int j, t_block *block)
 void	ft_display_zone_header(int i, t_zone *zone, char *zone_name)
 {
 	ft_printf("%s [%d] : zone address [%p]\n", zone_name, i + 1, zone);
-	ft_printf("%s [%d] : zone next address [%p]\n", zone_name, i + 1, zone->next);
+	ft_printf("%s [%d] : zone next address [%p]\n",
+		zone_name, i + 1, zone->next);
 	ft_printf("%s [%d] : zone lagest free block [%l]\n", zone_name,
 		i + 1, zone->largest_free_block_size);
 	ft_printf("-----------Blocks start----------------------\n");
