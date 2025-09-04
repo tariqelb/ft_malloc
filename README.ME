@@ -1,6 +1,50 @@
-### To run this main test execute those two commands
-## 1 - comiple main with library ->
-gcc main.c -L. -lft_malloc -o main
-## 2 - force to preload library at run time ->    
-LD_LIBRARY_PATH=$PWD LD_PRELOAD=$PWD/libft_malloc.so ./main
+## Project overview
 
+The project is about re-implement malloc realloc and free functions
+
+
+### What i learn from the project
+
+In this project durring the implement malloc i understand several thinks about RAM and swap paging and page reclaim,
+
+####My approch to implement malloc :
+when you call a malloc you reserve a block of memory in RAM, so call malloc end to call of mmap to reseve memory, and
+to reduce the overhead cause by multiple calls of mmap, the amount of bytes use ask for categorized to three type, tiny
+(less than N bytes),small (between N and M bytes) and large (more than M bytes), for the first call of tiny or small amount
+of memory, we reserve with mmap an amount of pages, let say we reserve for tiny 16 * 4096 (page size on bytes in specefic OS),
+then the folowing calls of tiny zone will use those pre-allocated and return blocks of requested bytes, till the zone is full
+then we allocate new pages, similare for small zone, will a different with the number of page allocated to small zone, for large
+zone the method is different a little bit, and because the amout of bytes is big we allocate dirrectly with mmap the requested
+number of bytes
+
+####RAM and swap
+Durring my implementation i discover that the main role of swap is to store the pages that not active or less active 
+and leave space on RAM which is fast than dist, so non-active pages on RAM moved to swap and re call it when its needed
+
+The actual RAM memory available is around 64 GB but the kernel tell a process you can have more arount 128TIB
+in 64 architecture, those called soft and hard limit soft limit is how mutch a process can have
+and hard limit is how soft limit could rise how that can happen, this related to concept
+of paging in RAM only needed (active) pages been in RAM and non-active pages moved to swap or deleted,
+that how we achieve move that physucal RAM
+
+####RAM and Programs
+
+When writing a program, it’s important to be aware of how often you access RAM and try to minimize unnecessary operations.
+An operating system runs many programs at the same time, and all of them compete for access to RAM. The more processes that need memory simultaneously, the more overhead the OS has to handle, which can slow down performance.
+
+Since RAM is limited, writing efficient programs means being careful with memory usage — especially with functions like malloc (reserving memory, reading, and writing to it). Reducing unnecessary memory allocations and accesses helps lower the pressure on RAM and improves overall system performance.RAM and program
+
+When you write a program you should be aware of how many time you accessing RAM and reduce it, an OS run several programs 
+those program try to access RAM to make there operation and the more process need to access in the same time the more OS 
+become slower, RAM is limited so wrting a good program should be aware of the use of malloc 
+(reserve memory , read and write on this memory) and reduce it as posible, to reduce overhead on RAM 
+
+#### To run this main test execute those two commands for linux OS
+##### compile the library 
+make
+##### 1 - comiple main with library ->
+gcc main.c -L. -lft_malloc -o main
+##### 1 - comiple main ->
+gcc main.c -o main
+##### 2 - force to preload library at run time ->
+LD_LIBRARY_PATH=$PWD LD_PRELOAD=$PWD/libft_malloc.so ./main

@@ -22,7 +22,7 @@
  * how that can happen, this related to concept
  * of paging in RAM only needed (active) pages been in RAM 
  * and non-active pages moved to swap or deleted ,
- * that how we achieve move that phusucal RAM
+ * that how we achieve move that physucal RAM
  */
 
 static int	ft_add_overflow_size(size_t a, size_t b, size_t *out)

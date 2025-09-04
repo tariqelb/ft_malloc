@@ -52,32 +52,5 @@ int	main(void)
 	printf("--------------------end of ft_free-----------------\n");
 //	show_alloc_mem();
 
-/*
-	void	*ptr[3];
-
-	ptr[0] = malloc(500);
-	show_alloc_mem();
-	ptr[1] = malloc(500);
-	show_alloc_mem();
-	free(ptr[1]);
-	ptr[0] = realloc(ptr[0], 900);
-	show_alloc_mem();
-	free(ptr[0]);
-	free(ptr[1]);
-	show_alloc_mem();
-*/
-/*	void	*ptr[3];
-
-	ptr[0] = malloc(50);
-	show_alloc_mem();
-	ptr[1] = malloc(19);
-	show_alloc_mem();
-	free(ptr[1]);
-	ptr[0] = realloc(ptr[0], 31);
-	show_alloc_mem();
-	free(ptr[0]);
-	free(ptr[1]);
-	show_alloc_mem();
-*/
 	return (0);
 }

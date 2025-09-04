@@ -90,7 +90,7 @@ size_t	align16(size_t x);
 int	ft_choose_zone(size_t nbr_of_bytes);
 
 //Description: Each zone have multiple pages in real
-//zone is a pointer for zones each zone have 2 or 4
+//zone is a pointer for zones each zone have 16 or 1024
 //pages deppending on zone size, and each zone store 
 //the size of largest free block, this function loop
 //through zone pointer and check if their a block can
@@ -122,10 +122,14 @@ void	ft_update_largest_free_block_size(t_zone *page_ptr);
 
 //-----ft_allocate_large_zone.c
 //Description: This function allacate large zone directly with mmap
+int		ft_print_error(char *error);
+int		ft_check_error(size_t nbr_of_bytes);
+void	ft_push_large_zone(t_zone *zone);
 void	*ft_allocate_large_zone(size_t nbr_of_bytes);
 
 //----ft_allocate_new_page.c
 //Description: Allocate new page in zones TINY and SMALL if its full
+void	ft_push_zone(int zone_index, t_zone *zone);
 t_zone	*ft_allocate_new_page(int zone);
 
 //-----------------------------------------------------
@@ -134,6 +138,8 @@ void	*malloc(size_t nbr_of_bytes);
 
 //-----------------------------------------------------
 //-----ft_free.c
+void	ft_free_large_zone(void);
+t_zone	*ft_get_zone(int zone_id);
 void	free(void *ptr);
 void	ft_merge_free_blocks(t_block *block);
 
@@ -144,10 +150,17 @@ void	*ft_second_check(void *ptr, size_t size, int *zone, t_block *block);
 
 //-----------------------------------------------------
 //-----ft_realloc.c
+void	*ft_use_the_block(t_block *block, void *ptr, size_t aligned_size);
+void	*ft_use_next_free_block(t_block *block, void *ptr, size_t aligned_size);
+void	*ft_new_block(size_t size, size_t aligned_size,
+		t_block *block, void *ptr);
 void	*realloc(void *ptr, size_t size);
 
 //-----------------------------------------------------
 //-----ft_show_alloc_mem.c
+void	ft_display_block(int j, t_block *block);
+void	ft_display_zone_header(int i, t_zone *zone, char *zone_name);
+void	ft_display_zone(int i, t_zone *zone, char *zone_name);
 void	show_alloc_mem(void);
 
 int	ft_printf(const char *str, ...);
