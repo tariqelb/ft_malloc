@@ -7,6 +7,7 @@ This project is about re-implementing the `malloc`, `realloc`, and `free` functi
 In this project, while implementing `malloc`, I understood several things about RAM, swap, paging, and page reclaim.  
 
 ### My Approach to Implementing malloc
+
 When you call `malloc`, you reserve a block of memory in RAM. Internally, `malloc` often ends up calling `mmap` to reserve memory.  
 To reduce the overhead caused by multiple calls to `mmap`, requested sizes are categorized into three types:  
 - **Tiny** (less than `N` bytes)  
@@ -18,6 +19,7 @@ For tiny and small allocations, the first call reserves multiple pages at once (
 Large allocations are handled differently: because the requested size is big, we allocate directly with `mmap` for the exact number of bytes requested.  
 
 ### RAM and Swap
+
 During my implementation, I discovered that the main role of **swap** is to store pages that are inactive or less frequently used. This frees space in RAM, which is much faster than disk. Inactive pages are moved to swap and recalled when needed.  
 
 On a 64-bit architecture, even if the physical RAM is 64 GB, the kernel can let processes address much more — for example, up to 128 TiB.  
@@ -34,22 +36,27 @@ An operating system runs many programs simultaneously, and they all compete for 
 Since RAM is limited, efficient programs should carefully manage memory — especially when using functions like `malloc` (reserving memory, reading, and writing to it). Reducing unnecessary allocations and memory operations helps lower pressure on RAM and improves overall system performance.  
 
 ### Running the Main Test on Linux
+
 #### 1. Compile the library  
+
 ```bash
 make
 ```
 
 #### 2. Compile `main` with the library  
+
 ```bash
 gcc main.c -L. -lft_malloc -o main
 ```
 
 #### 3. (Optional) Compile `main` without the library  
+
 ```bash
 gcc main.c -o main
 ```
 
 #### 4. Force preload of the library at runtime  
+
 ```bash
 LD_LIBRARY_PATH=$PWD LD_PRELOAD=$PWD/libft_malloc.so ./main
 ```
