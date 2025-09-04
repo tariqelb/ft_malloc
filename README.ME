@@ -1,50 +1,55 @@
-## Project overview
+# Project Overview
 
-The project is about re-implement malloc realloc and free functions
+This project is about re-implementing the `malloc`, `realloc`, and `free` functions.  
 
+## What I Learned from the Project
 
-### What i learn from the project
+In this project, while implementing `malloc`, I understood several things about RAM, swap, paging, and page reclaim.  
 
-In this project durring the implement malloc i understand several thinks about RAM and swap paging and page reclaim,
+### My Approach to Implementing malloc
+When you call `malloc`, you reserve a block of memory in RAM. Internally, `malloc` often ends up calling `mmap` to reserve memory.  
+To reduce the overhead caused by multiple calls to `mmap`, requested sizes are categorized into three types:  
+- **Tiny** (less than `N` bytes)  
+- **Small** (between `N` and `M` bytes)  
+- **Large** (greater than `M` bytes)  
 
-#### My approch to implement malloc :
-when you call a malloc you reserve a block of memory in RAM, so call malloc end to call of mmap to reseve memory, and
-to reduce the overhead cause by multiple calls of mmap, the amount of bytes use ask for categorized to three type, tiny
-(less than N bytes),small (between N and M bytes) and large (more than M bytes), for the first call of tiny or small amount
-of memory, we reserve with mmap an amount of pages, let say we reserve for tiny 16 * 4096 (page size on bytes in specefic OS),
-then the folowing calls of tiny zone will use those pre-allocated and return blocks of requested bytes, till the zone is full
-then we allocate new pages, similare for small zone, will a different with the number of page allocated to small zone, for large
-zone the method is different a little bit, and because the amout of bytes is big we allocate dirrectly with mmap the requested
-number of bytes
+For tiny and small allocations, the first call reserves multiple pages at once (e.g., for tiny allocations we might reserve `16 * 4096` bytes, assuming a 4 KB page size). Subsequent calls of the same type reuse these pre-allocated pages until the zone is full. When it’s full, new pages are allocated.  
 
-#### RAM and swap
-Durring my implementation i discover that the main role of swap is to store the pages that not active or less active 
-and leave space on RAM which is fast than dist, so non-active pages on RAM moved to swap and re call it when its needed
+Large allocations are handled differently: because the requested size is big, we allocate directly with `mmap` for the exact number of bytes requested.  
 
-The actual RAM memory available is around 64 GB but the kernel tell a process you can have more arount 128TIB
-in 64 architecture, those called soft and hard limit soft limit is how mutch a process can have
-and hard limit is how soft limit could rise how that can happen, this related to concept
-of paging in RAM only needed (active) pages been in RAM and non-active pages moved to swap or deleted,
-that how we achieve move that physucal RAM
+### RAM and Swap
+During my implementation, I discovered that the main role of **swap** is to store pages that are inactive or less frequently used. This frees space in RAM, which is much faster than disk. Inactive pages are moved to swap and recalled when needed.  
 
-#### RAM and Programs
+On a 64-bit architecture, even if the physical RAM is 64 GB, the kernel can let processes address much more — for example, up to 128 TiB.  
+This is explained by **soft and hard memory limits**:  
+- The **soft limit** is how much memory a process can use by default.  
+- The **hard limit** is the maximum value to which the soft limit can be raised.  
 
-When writing a program, it’s important to be aware of how often you access RAM and try to minimize unnecessary operations.
-An operating system runs many programs at the same time, and all of them compete for access to RAM. The more processes that need memory simultaneously, the more overhead the OS has to handle, which can slow down performance.
+This works because only **active pages** need to stay in RAM, while inactive ones are swapped out or discarded. That’s how the system can give the illusion of more memory than the actual physical RAM.  
 
-Since RAM is limited, writing efficient programs means being careful with memory usage — especially with functions like malloc (reserving memory, reading, and writing to it). Reducing unnecessary memory allocations and accesses helps lower the pressure on RAM and improves overall system performance.RAM and program
+### RAM and Programs
+When writing a program, it’s important to minimize unnecessary memory access.  
+An operating system runs many programs simultaneously, and they all compete for RAM. The more processes that need memory at the same time, the more overhead the OS has to manage, which can slow down performance.  
 
-When you write a program you should be aware of how many time you accessing RAM and reduce it, an OS run several programs 
-those program try to access RAM to make there operation and the more process need to access in the same time the more OS 
-become slower, RAM is limited so wrting a good program should be aware of the use of malloc 
-(reserve memory , read and write on this memory) and reduce it as posible, to reduce overhead on RAM 
+Since RAM is limited, efficient programs should carefully manage memory — especially when using functions like `malloc` (reserving memory, reading, and writing to it). Reducing unnecessary allocations and memory operations helps lower pressure on RAM and improves overall system performance.  
 
-#### To run this main test execute those two commands for linux OS
-##### compile the library 
+### Running the Main Test on Linux
+#### 1. Compile the library  
+```bash
 make
-##### 1 - comiple main with library ->
+```
+
+#### 2. Compile `main` with the library  
+```bash
 gcc main.c -L. -lft_malloc -o main
-##### 1 - comiple main ->
+```
+
+#### 3. (Optional) Compile `main` without the library  
+```bash
 gcc main.c -o main
-##### 2 - force to preload library at run time ->
+```
+
+#### 4. Force preload of the library at runtime  
+```bash
 LD_LIBRARY_PATH=$PWD LD_PRELOAD=$PWD/libft_malloc.so ./main
+```
