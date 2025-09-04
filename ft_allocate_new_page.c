@@ -6,7 +6,7 @@
 /*   By: tel-bouh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 19:07:40 by tel-bouh          #+#    #+#             */
-/*   Updated: 2025/09/02 19:09:27 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2025/09/04 11:58:33 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ t_zone	*ft_allocate_new_page(int zone_index)
 	zone->blocks = (t_block *)((char *)zone + sizeof(t_zone));
 	zone->blocks->size = page_size - sizeof(t_zone) - sizeof(t_block);
 	zone->blocks->free = 1;
+	zone->blocks->magic_number = BLOCK_MAGIC;
 	zone->blocks->next = NULL;
 	zone->largest_free_block_size = page_size
 		- sizeof(t_zone) - sizeof(t_block);

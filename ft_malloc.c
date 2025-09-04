@@ -6,7 +6,7 @@
 /*   By: tel-bouh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 19:08:35 by tel-bouh          #+#    #+#             */
-/*   Updated: 2025/09/01 20:04:15 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2025/09/04 12:09:26 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ t_g_zone_hold	g_zone_var = {NULL, NULL, NULL, 0};
 
 void	*malloc(size_t nbr_of_bytes)
 {
-	int	is_full;
-	int	zone;
+	int		is_full;
+	int		zone;
 	void	*ptr;
 
 	ptr = NULL;

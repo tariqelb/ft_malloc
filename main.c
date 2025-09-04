@@ -14,32 +14,48 @@ int	main(void)
 	size_t	nbr_of_bytes;
 	size_t	resize;
 	int	max = 170;
-	void	*ptr[max];
+	char	**ptr;
 	int	index;
 
 	nbr_of_bytes	= 900;
 	resize		= 950;
 
+	ptr = (char **) malloc(sizeof(char *) * max);
 	index = 0;
 	printf("-------------------------ft_malloc-----------------\n");
 	while (index < max)
 	{
-		ptr[index] = malloc(nbr_of_bytes);	
+		ptr[index] = (char *) malloc( sizeof(char) * nbr_of_bytes);	
+		int j = 0;
+		while (j < 10)
+		{
+			ptr[index][j] = 'a' + j++;
+		}
+		ptr[index][j] = 0;
 		index++;
 	}
 
 	printf("----------------------end of ft_malloc-----------------\n");
-	show_alloc_mem();
+	//show_alloc_mem();
 
 	index = 0;
 	printf("-------------------------ft_realloc-----------------\n");
 	while (index < max)
 	{
-		ptr[index] = realloc(ptr[index], resize);
+		ptr[index] = (char *) realloc(ptr[index], resize);
 		index++;
 	}
+	printf("-------------------------print data -----------------\n");
+	index = 0;
+	/*while (index < max)
+	{
+		write (1, ptr[index], 10);
+		write(1, "\n", 1);
+		index++;
+	}*/
+	index = 0;
 
-	printf("--------------------end of ft_realloc-----------------\n");
+	printf("--------------------end of print data-----------------\n");
 //	show_alloc_mem();
 
 	index = 0;
@@ -51,6 +67,8 @@ int	main(void)
 	}
 	printf("--------------------end of ft_free-----------------\n");
 //	show_alloc_mem();
+	free(ptr);
 
+//	while (1);
 	return (0);
 }

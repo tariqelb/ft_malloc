@@ -6,7 +6,7 @@
 /*   By: tel-bouh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 23:40:57 by tel-bouh          #+#    #+#             */
-/*   Updated: 2025/08/27 23:50:57 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2025/09/04 12:08:44 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ int	ft_choose_zone(size_t nbr_of_bytes)
 
 int	ft_check_if_zone_is_full(int zone, size_t nbr_of_bytes)
 {
+	int		is_full;
+	int		size;
 	t_zone	*temp_zone;
-	int	is_full;
-	int	size;
 
 	size = nbr_of_bytes + sizeof(t_block);
 	is_full = 1;

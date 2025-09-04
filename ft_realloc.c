@@ -6,7 +6,7 @@
 /*   By: tel-bouh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 19:09:48 by tel-bouh          #+#    #+#             */
-/*   Updated: 2025/09/02 19:19:00 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2025/09/04 12:10:32 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,8 @@ void	*realloc(void *ptr, size_t size)
 	t_block	*block;
 	size_t	aligned_size;
 	void	*new_ptr;
-	int	zone;
-	int	temp_zone;
+	int		zone;
+	int		temp_zone;
 
 	block = (t_block *)((char *) ptr - sizeof(t_block));
 	if (block->magic_number != BLOCK_MAGIC)

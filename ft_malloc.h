@@ -6,7 +6,7 @@
 /*   By: tel-bouh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 19:08:51 by tel-bouh          #+#    #+#             */
-/*   Updated: 2025/09/02 19:13:48 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2025/09/04 12:24:26 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ typedef struct s_block
 {
 	size_t		size;
 	size_t		magic_number;
-	int		free;
-	int		zone_id;
-	struct s_block	*next;
+	int			free;
+	int			zone_id;
+	struct s_block		*next;
 }	t_block;
 
 // Size of the user’s data
@@ -58,7 +58,7 @@ typedef struct s_zone
 	size_t		zone_size;
 	t_block		*blocks;
 	size_t		largest_free_block_size;
-	struct s_zone	*next;
+	struct s_zone		*next;
 }	t_zone;
 
 //Larget free block size will hold the size of 
@@ -87,7 +87,7 @@ size_t	align16(size_t x);
 //Description: The function take nbr of bytes handle
 //nigative and retun zone number that will be used to
 //allocate memory , zone 0 for tiny, 1 for small and 2 for large
-int	ft_choose_zone(size_t nbr_of_bytes);
+int		ft_choose_zone(size_t nbr_of_bytes);
 
 //Description: Each zone have multiple pages in real
 //zone is a pointer for zones each zone have 16 or 1024
@@ -98,7 +98,7 @@ int	ft_choose_zone(size_t nbr_of_bytes);
 //if there is not suffisent free block
 //return 0 on free block found and 1 on full
 
-int	ft_check_if_zone_is_full(int zone, size_t nbr_of_bytes);
+int		ft_check_if_zone_is_full(int zone, size_t nbr_of_bytes);
 
 //----ft_allocate_block.c
 void	*ft_return_whole_block(t_block *temp_block, int zone, t_zone *page_ptr);
@@ -153,7 +153,7 @@ void	*ft_second_check(void *ptr, size_t size, int *zone, t_block *block);
 void	*ft_use_the_block(t_block *block, void *ptr, size_t aligned_size);
 void	*ft_use_next_free_block(t_block *block, void *ptr, size_t aligned_size);
 void	*ft_new_block(size_t size, size_t aligned_size,
-		t_block *block, void *ptr);
+			t_block *block, void *ptr);
 void	*realloc(void *ptr, size_t size);
 
 //-----------------------------------------------------
@@ -163,11 +163,11 @@ void	ft_display_zone_header(int i, t_zone *zone, char *zone_name);
 void	ft_display_zone(int i, t_zone *zone, char *zone_name);
 void	show_alloc_mem(void);
 
-int	ft_printf(const char *str, ...);
-int	ft_put_unsignedint(unsigned int nbr);
-int	ft_putint(int nbr);
-int	ft_puthex(unsigned int nbr, int flag);
-int	ft_putstr(char *str);
-int	ft_putchar(char c);
+int		ft_printf(const char *str, ...);
+int		ft_put_unsignedint(unsigned int nbr);
+int		ft_putint(int nbr);
+int		ft_puthex(unsigned int nbr, int flag);
+int		ft_putstr(char *str);
+int		ft_putchar(char c);
 
 #endif

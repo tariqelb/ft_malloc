@@ -6,7 +6,7 @@
 /*   By: tel-bouh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 19:10:12 by tel-bouh          #+#    #+#             */
-/*   Updated: 2025/09/02 19:15:08 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2025/09/04 12:10:58 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_display_zone_header(int i, t_zone *zone, char *zone_name)
 void	ft_display_zone(int i, t_zone *zone, char *zone_name)
 {
 	t_block	*block;
-	int	j;
+	int		j;
 
 	i = 0;
 	ft_printf("---------------------------------------------\n");
@@ -68,7 +68,7 @@ void	show_alloc_mem(void)
 	t_zone	*tiny;
 	t_zone	*small;
 	t_zone	*large;
-	int	i;
+	int		i;
 
 	i = 0;
 	tiny = g_zone_var.tiny;
