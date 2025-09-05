@@ -6,7 +6,7 @@
 /*   By: tel-bouh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 19:08:51 by tel-bouh          #+#    #+#             */
-/*   Updated: 2025/09/04 12:24:26 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2025/09/05 14:53:32 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <unistd.h>
 # include <stdarg.h>
 # include <stddef.h>
+#include <limits.h>
 
 //TINY: allocations up to 64 bytes
 //SMALL: allocations 65 to 131071 bytes
@@ -77,6 +78,9 @@ typedef struct zone_hold
 
 extern t_g_zone_hold	g_zone_var;
 
+//----ft_check_overflow.c
+int     ft_check_overflow(size_t nbr_of_bytes);
+
 //----ft_map.c
 t_zone	*ft_map(size_t alined_size);
 void	*ft_return_ptr(t_block *block);
@@ -88,6 +92,7 @@ size_t	align16(size_t x);
 //nigative and retun zone number that will be used to
 //allocate memory , zone 0 for tiny, 1 for small and 2 for large
 int		ft_choose_zone(size_t nbr_of_bytes);
+int		ft_add_overflow_size(size_t a);
 
 //Description: Each zone have multiple pages in real
 //zone is a pointer for zones each zone have 16 or 1024

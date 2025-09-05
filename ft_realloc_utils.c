@@ -6,7 +6,7 @@
 /*   By: tel-bouh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 19:15:56 by tel-bouh          #+#    #+#             */
-/*   Updated: 2025/09/02 19:16:01 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2025/09/05 14:52:25 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@ void	*ft_first_check(void *ptr, size_t size, int *zone, t_block *block)
 {
 	size_t	aligned_size;
 
+	if (ft_check_overflow(size))
+	{
+		*zone = 4;
+		return (NULL);
+	}
 	aligned_size = align16(size);
 	if (!ptr)
 		return (malloc(size));

@@ -6,7 +6,7 @@
 /*   By: tel-bouh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 19:07:03 by tel-bouh          #+#    #+#             */
-/*   Updated: 2025/09/02 19:02:08 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2025/09/05 15:39:28 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,8 @@
  * and non-active pages moved to swap or deleted ,
  * that how we achieve move that physucal RAM
  */
+ //const long long max = 9223372036854775807LL;
 
-static int	ft_add_overflow_size(size_t a, size_t b, size_t *out)
-{
-	return (__builtin_add_overflow(a, b, out));
-}
 
 int	ft_print_error(char *error)
 {
@@ -44,28 +41,25 @@ int	ft_print_error(char *error)
 int	ft_check_error(size_t nbr_of_bytes)
 {
 	t_rlimit	lim;
-	size_t		total_size;
+	size_t		header_size;
 	size_t		aligned_size;
 	size_t		total;
 	size_t		max_va_conservative;
 
 	max_va_conservative = (size_t)1ULL << 47;
-	total_size = sizeof(t_zone) + sizeof(t_block);
-	if (ft_add_overflow_size(total_size, nbr_of_bytes, &total))
-		return (ft_print_error("error\n"));
+	header_size = sizeof(t_zone) + sizeof(t_block);
+	total = header_size + nbr_of_bytes;
 	aligned_size = align16(total);
-	if (aligned_size < total)
-		return (ft_print_error("error\n"));
+	if (ft_check_overflow(nbr_of_bytes))
+		return (1); 
 	getrlimit(RLIMIT_AS, &lim);
 	if (aligned_size > lim.rlim_cur)
-		return (ft_print_error("error\n"));
+		return (ft_print_error("Error: size Too big\n"));
 	if (getrlimit(RLIMIT_AS, &lim) == 0 && lim.rlim_cur != RLIM_INFINITY)
 	{
 		if ((unsigned long long)aligned_size > (unsigned long long)lim.rlim_cur)
-			return (ft_print_error("error\n"));
+			return (ft_print_error("Error: size too Big\n"));
 	}
-	else if (aligned_size > max_va_conservative)
-		return (ft_print_error("error\n"));
 	return (0);
 }
 

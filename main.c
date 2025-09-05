@@ -45,18 +45,19 @@ int	main(void)
 		ptr[index] = (char *) realloc(ptr[index], resize);
 		index++;
 	}
-	printf("-------------------------print data -----------------\n");
+	show_alloc_mem();
+	/*printf("-------------------------print data -----------------\n");
 	index = 0;
-	/*while (index < max)
+	while (index < max)
 	{
 		write (1, ptr[index], 10);
 		write(1, "\n", 1);
 		index++;
-	}*/
+	}
 	index = 0;
 
 	printf("--------------------end of print data-----------------\n");
-//	show_alloc_mem();
+	*/
 
 	index = 0;
 	printf("-------------------------ft_free-----------------\n");

@@ -12,7 +12,8 @@ SRCS = ft_allocate_large_zone.c \
        ft_show_alloc_mem.c \
        ft_printf.c \
        ft_printf_utils.c \
-       ft_map.c
+       ft_map.c \
+       ft_check_overflow.c
 
 OBJS = $(SRCS:.c=.o)
 

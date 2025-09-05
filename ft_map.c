@@ -6,7 +6,7 @@
 /*   By: tel-bouh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 19:09:11 by tel-bouh          #+#    #+#             */
-/*   Updated: 2025/08/28 18:36:00 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2025/09/05 15:39:50 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,11 @@ t_zone	*ft_map(size_t aligned_size)
 
 	zone = mmap(NULL, aligned_size, PROT_READ
 			| PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+	if (zone == NULL)
+		printf("NULL\n");
 	if (zone == MAP_FAILED)
 	{
-		perror("mmap failed: ");
+		write(2, "Error: mmap failed\n", 19);
 		return (NULL);
 	}
 	return (zone);

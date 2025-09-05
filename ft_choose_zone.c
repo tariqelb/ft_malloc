@@ -14,7 +14,7 @@
 
 int	ft_choose_zone(size_t nbr_of_bytes)
 {
-	int	zone;
+	int		zone;
 
 	zone = 0;
 	if (nbr_of_bytes <= TINY)

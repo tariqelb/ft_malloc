@@ -49,7 +49,7 @@ t_zone	*ft_allocate_new_page(int zone_index)
 			| PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
 	if (zone == MAP_FAILED)
 	{
-		perror("mmap failed");
+		write(2, "mmap failed\n", 12);
 		return (NULL);
 	}
 	zone->zone_size = page_size;
