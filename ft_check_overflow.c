@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_check_overflow.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tel-bouh <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/09/05 18:00:39 by tel-bouh          #+#    #+#             */
+/*   Updated: 2025/09/05 18:00:53 by tel-bouh         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_malloc.h"
 
 int	ft_check_overflow(size_t nbr_of_bytes)
@@ -6,7 +18,7 @@ int	ft_check_overflow(size_t nbr_of_bytes)
 	size_t	sum;
 	size_t	aligned;
 	size_t	header;
-	int	valid;
+	int		valid;
 
 	header = sizeof(t_zone) + sizeof(t_block);
 	first_bit = nbr_of_bytes >> 63;

@@ -6,7 +6,7 @@
 /*   By: tel-bouh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 19:08:35 by tel-bouh          #+#    #+#             */
-/*   Updated: 2025/09/05 14:48:14 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2025/09/05 18:02:06 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	*malloc(size_t nbr_of_bytes)
 
 	ptr = NULL;
 	g_zone_var.mapping_size = getpagesize();
-	if (ft_check_overflow(nbr_of_bytes))	
+	if (ft_check_overflow(nbr_of_bytes))
 		return (NULL);
 	zone = ft_choose_zone(nbr_of_bytes);
 	if (zone == -1)
@@ -33,7 +33,7 @@ void	*malloc(size_t nbr_of_bytes)
 		if (is_full == 0)
 			ptr = ft_find_the_best_free_block(zone, nbr_of_bytes);
 		else if (ft_allocate_new_page(zone))
-				ptr = ft_find_the_best_free_block(zone, nbr_of_bytes);
+			ptr = ft_find_the_best_free_block(zone, nbr_of_bytes);
 		return (ptr);
 	}
 	else

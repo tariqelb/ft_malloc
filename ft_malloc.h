@@ -6,7 +6,7 @@
 /*   By: tel-bouh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 19:08:51 by tel-bouh          #+#    #+#             */
-/*   Updated: 2025/09/05 14:53:32 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2025/09/05 17:58:30 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include <unistd.h>
 # include <stdarg.h>
 # include <stddef.h>
-#include <limits.h>
+# include <limits.h>
 
 //TINY: allocations up to 64 bytes
 //SMALL: allocations 65 to 131071 bytes
@@ -79,7 +79,7 @@ typedef struct zone_hold
 extern t_g_zone_hold	g_zone_var;
 
 //----ft_check_overflow.c
-int     ft_check_overflow(size_t nbr_of_bytes);
+int		ft_check_overflow(size_t nbr_of_bytes);
 
 //----ft_map.c
 t_zone	*ft_map(size_t alined_size);

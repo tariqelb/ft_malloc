@@ -6,7 +6,7 @@
 /*   By: tel-bouh <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/27 19:07:03 by tel-bouh          #+#    #+#             */
-/*   Updated: 2025/09/05 15:39:28 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2025/09/05 18:00:08 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@
  * and non-active pages moved to swap or deleted ,
  * that how we achieve move that physucal RAM
  */
- //const long long max = 9223372036854775807LL;
-
+//const long long max = 9223372036854775807LL;
 
 int	ft_print_error(char *error)
 {
@@ -51,7 +50,7 @@ int	ft_check_error(size_t nbr_of_bytes)
 	total = header_size + nbr_of_bytes;
 	aligned_size = align16(total);
 	if (ft_check_overflow(nbr_of_bytes))
-		return (1); 
+		return (1);
 	getrlimit(RLIMIT_AS, &lim);
 	if (aligned_size > lim.rlim_cur)
 		return (ft_print_error("Error: size Too big\n"));
