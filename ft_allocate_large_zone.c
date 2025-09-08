@@ -43,9 +43,7 @@ int	ft_check_error(size_t nbr_of_bytes)
 	size_t		header_size;
 	size_t		aligned_size;
 	size_t		total;
-	size_t		max_va_conservative;
 
-	max_va_conservative = (size_t)1ULL << 47;
 	header_size = sizeof(t_zone) + sizeof(t_block);
 	total = header_size + nbr_of_bytes;
 	aligned_size = align16(total);
