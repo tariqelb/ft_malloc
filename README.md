@@ -61,6 +61,8 @@ gcc main.c -o main
 
 LD_LIBRARY_PATH=$PWD LD_PRELOAD=$PWD/libft_malloc.so ./main
 
+````
+
 #### 5. Described the entire sequence of events
 
 Request: A block of memory is requested (e.g., via malloc).
@@ -74,13 +76,11 @@ Check: The CPU (its MMU) checks the page table for a mapping for the page contai
 Fault: The mapping does not exist, so the CPU triggers a page fault and transfers control to the OS kernel.
 
 Kernel Action: The kernel handles the fault:
-  It finds a free physical page frame in RAM (let's say it starts at physical address N).
-  It updates its Virtual Memory Area (VMA) structures to note that this range of virtual addresses is now valid and backed by RAM. (This is the "new rule" you mentioned).
+It finds a free physical page frame in RAM (let's say it starts at physical address N).
+It updates its Virtual Memory Area (VMA) structures to note that this range of virtual addresses is now valid and backed by RAM. (This is the "new rule" you mentioned).
 
 Map: The kernel adds an entry into the page table: "The virtual page containing address A is now mapped to the physical page frame starting at address N."
 
 Resume: The kernel returns control to the program. The CPU restarts the instruction.
 
 Success: The CPU checks the page table again, finds the new mapping, and the read/write operation finally completes, accessing the physical RAM at location N + offset.
-
-````
